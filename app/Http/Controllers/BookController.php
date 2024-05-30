@@ -14,7 +14,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->id() === 1){
+        if (auth()->user()->id === 1){
             $books = Book::paginate(10);
             return view('my_books.index',compact('books'));
         }
