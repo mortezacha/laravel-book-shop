@@ -31,6 +31,9 @@
                 <div class="flex w-full justify-center" x-data="{
                      deleteImage(url){
                      axios.delete(url).then(function(res){
+                     if(res.status == 204){
+                        location.reload()
+                     }
                         console.log(res)
                      }).catch(function(err){
                         console.log(err)
