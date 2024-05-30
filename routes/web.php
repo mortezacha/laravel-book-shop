@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/',[BookController::class,'store'])->name('my_books.store');
         Route::get('/{book}/edit',[BookController::class,'edit'])->name('my_books.edit');
         Route::post('/{book}/update',[BookController::class,'update'])->name('my_books.update');
+        Route::delete('/{book}/delete-image',[BookController::class,'deleteImage'])->name('my_books.delete_image');
     });
 });
 
