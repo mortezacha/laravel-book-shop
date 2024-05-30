@@ -24,12 +24,21 @@
                 </p>
                 @enderror
 
+                @if($book->image_url)
                 <div class="block mb-2 mx-auto font-medium text-gray-900 dark:text-white">
                     <img class="h-auto max-w-xs w-1/2 mx-auto" src="{{$book->full_image_url}}" alt="{{$book->title}}">
                 </div>
-                <div class="flex w-full justify-center">
-                    <button type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Remove</button>
+                <div class="flex w-full justify-center" x-data="{
+                     deleteImage(url){
+                     axios.delete(url).then(function(res){
+                        console.log(res)
+                     }).catch(function(err){
+                        console.log(err)
+                     })
+                     }}">
+                    <button type="button" @click="deleteImage(`{{route('my_books.delete_image',$book)}}`)" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Remove</button>
                 </div>
+                @endif
                 <div>
                     <label  for="file_input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image(optional)</label>
                     <input name="image" aria-describedby="file_input_help" id="file_input" type="file" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
