@@ -6,6 +6,7 @@ use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use http\Env\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -75,6 +76,10 @@ class BookController extends Controller
         $book->fill($request->safe()->except('image'));
         if ($request->hasFile('image')){
             $url = $request->file('image')->store('books/images',['disk'=>'public']);
+            if ($book->image_url){
+//                if new book image added, the old image file will be removed from storage
+                Storage::delete('public/'.$book->image_url);
+            }
             $book->image_url = $url;
         }
         $book->save();
