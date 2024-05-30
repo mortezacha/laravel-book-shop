@@ -89,6 +89,15 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
+    public function deleteImage(Book $book)
+    {
+        if ($book->image_url){
+//                if new book image added, the old image file will be removed from storage
+            Storage::delete('public/'.$book->image_url);
+        }
+        return response(status: 204);
+    }
     public function destroy(Book $book)
     {
         //
