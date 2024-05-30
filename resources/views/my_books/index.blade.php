@@ -24,7 +24,7 @@
                 @foreach($books as $book)
                     <tr class="bg-white border-b">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap flex space-x-3">
-                            <img src="{{$book->full_image_url}}" class="w-10 h-10">
+                            <img src="{{$book->full_image_url}}" class="w-10 h-10" alt="{{$book->title}}">
                             <h1 class="my-2 text-center font-semibold">
                                 <a href="#" class="font-medium hover:underline text-blue-600">
                                     {{$book->title}}
