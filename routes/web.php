@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
        Route::get('/create',[BookController::class,'create']);
         Route::post('/',[BookController::class,'store'])->name('my_books.store');
         Route::get('/{book}/edit',[BookController::class,'edit'])->name('my_books.edit');
+        Route::post('/{book}/update',[BookController::class,'update'])->name('my_books.update');
     });
 });
 
