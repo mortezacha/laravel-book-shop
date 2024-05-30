@@ -11,7 +11,7 @@ class UpdateBookRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return (auth()->id() == $this->book?->user_id || auth()->id() == 1);
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'sometimes|string|max:255',
+            'summary' => 'sometimes|string|max:255',
+            'image' => 'sometimes|image|max:2048',
         ];
     }
 }
