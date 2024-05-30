@@ -72,7 +72,14 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        $book->fill($request->safe()->except('image'));
+        if ($request->hasFile('image')){
+            $url = $request->file('image')->store('books/images',['disk'=>'public']);
+            $book->image_url = $url;
+        }
+        $book->save();
+
+        return back();
     }
 
     /**
