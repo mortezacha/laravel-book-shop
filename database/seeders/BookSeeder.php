@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class BookSeeder extends Seeder
@@ -12,6 +12,6 @@ class BookSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        User::factory(5)->hasBooks(3)->create();
     }
 }

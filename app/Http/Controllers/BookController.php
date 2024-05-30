@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use App\Models\Book;
+use http\Env\Request;
 
 class BookController extends Controller
 {
@@ -13,7 +14,14 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        if (auth()->user()->id === 1){
+            $books = Book::paginate(10);
+            return view('my_books.index',compact('books'));
+        }
+        $books = auth()->user()->books()->paginate(10,[
+            'id','user_id','image_url','title','created_at'
+        ]);
+        return view('my_books.index',compact('books'));
     }
 
     /**
@@ -21,7 +29,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('my_books.create');
     }
 
     /**
@@ -29,7 +37,17 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        //
+
+        $url = null;
+        if ($request->hasFile('image')){
+            $url = $request->file('image')->store('books/images',['disk'=>'public']);
+        }
+        auth()->user()->books()->create([
+            'title' => $request->title,
+            'summary' => $request->summary,
+            'image_url' => $url
+        ]);
+        return back();
     }
 
     /**
@@ -45,7 +63,8 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        abort_if(auth()->id() !==1 && $book->user_id !== auth()->id(),403,'Only can edit your books');
+        return view('my_books.edit',compact('book'));
     }
 
     /**
