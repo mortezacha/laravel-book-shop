@@ -1,3 +1,5 @@
+const { addDynamicIconSelectors } = require('@iconify/tailwind');
+
 module.exports = {
     content: [
       "./resources/**/*.blade.php",
@@ -9,6 +11,7 @@ module.exports = {
       extend: {},
     },
     plugins: [
-        require('flowbite/plugin')
+        require('flowbite/plugin'),
+        addDynamicIconSelectors()
     ],
   }
