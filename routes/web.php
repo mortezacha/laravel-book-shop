@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{book}/edit',[BookController::class,'edit'])->name('my_books.edit');
         Route::post('/{book}/update',[BookController::class,'update'])->name('my_books.update');
         Route::delete('/{book}/delete-image',[BookController::class,'deleteImage'])->name('my_books.delete_image');
+        Route::delete('/{book}',[BookController::class,'destroy'])->name('my_books.delete');
     });
 });
 
