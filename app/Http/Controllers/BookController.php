@@ -72,6 +72,7 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
+        abort_if(auth()->id() !==1 && $book->user_id !== auth()->id(),403,'Only can edit your books');
         $book->fill($request->safe()->except('image'));
         if ($request->hasFile('image')){
             $url = $request->file('image')->store('books/images',['disk'=>'public']);
@@ -92,6 +93,7 @@ class BookController extends Controller
 
     public function deleteImage(Book $book)
     {
+        abort_if(auth()->id() !==1 && $book->user_id !== auth()->id(),403,'Only can edit your books');
         if ($book->image_url){
 //                if new book image added, the old image file will be removed from storage
             Storage::delete('public/'.$book->image_url);
@@ -102,5 +104,6 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         //
+        abort_if(auth()->id() !==1 && $book->user_id !== auth()->id(),403,'Only can edit your books');
     }
 }
