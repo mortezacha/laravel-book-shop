@@ -11,7 +11,17 @@
                     my books
                 </h3>
             </div>
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500" x-data="{
+                     deleteBook(url){
+                     axios.delete(url).then(function(res){
+                     if(res.status == 204){
+                        location.reload()
+                     }
+                        console.log(res)
+                     }).catch(function(err){
+                        console.log(err)
+                     })
+                     }}">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                     <th scope="col" class="px-6 py-3">title</th>
@@ -39,7 +49,7 @@
                         </td>
                         <td class="px-6 py-4 space-x-2">
                             <a href="{{route('my_books.edit',$book)}}" class="font-semibold text-blue-600 hover:underline"> Edit </a>
-                            <a href="#" class="font-semibold text-red-600 hover:underline"> Delete </a>
+                            <button @click="deleteBook(`{{route('my_books.delete',$book)}}`)" class="font-semibold text-red-600 hover:underline"> Delete </button>
                         </td>
                     </tr>
                 @endforeach

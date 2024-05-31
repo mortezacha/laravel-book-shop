@@ -103,7 +103,6 @@ class BookController extends Controller
     }
     public function destroy(Book $book)
     {
-        //
         abort_if(auth()->id() !==1 && $book->user_id !== auth()->id(),403,'Only can edit your books');
 
         if ($book->image_url){
