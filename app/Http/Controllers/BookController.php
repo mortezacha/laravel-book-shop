@@ -105,5 +105,13 @@ class BookController extends Controller
     {
         //
         abort_if(auth()->id() !==1 && $book->user_id !== auth()->id(),403,'Only can edit your books');
+
+        if ($book->image_url){
+//                if new book image added, the old image file will be removed from storage
+            Storage::delete('public/'.$book->image_url);
+        }
+
+        $book->delete();
+        return response(status: 204);
     }
 }
