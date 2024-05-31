@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('my-books')->group(function (){
        Route::get('/',[BookController::class,'index'])->name('my_books.index');
-       Route::get('/create',[BookController::class,'create']);
+       Route::get('/create',[BookController::class,'create'])->name('my_books.create');
         Route::post('/',[BookController::class,'store'])->name('my_books.store');
         Route::get('/{book}/edit',[BookController::class,'edit'])->name('my_books.edit');
         Route::post('/{book}/update',[BookController::class,'update'])->name('my_books.update');
