@@ -94,7 +94,7 @@ class BookController extends Controller
 
     public function deleteImage(Book $book)
     {
-        abort_if(auth()->id() !==1 && $book->user_id !== auth()->id(),403,'Only can edit your books');
+        Gate::authorize('delete',$book);
         if ($book->image_url){
 //                if new book image added, the old image file will be removed from storage
             Storage::delete('public/'.$book->image_url);
@@ -104,8 +104,7 @@ class BookController extends Controller
     }
     public function destroy(Book $book)
     {
-        abort_if(auth()->id() !==1 && $book->user_id !== auth()->id(),403,'Only can edit your books');
-
+        Gate::authorize('delete',$book);
         if ($book->image_url){
 //                if new book image added, the old image file will be removed from storage
             Storage::delete('public/'.$book->image_url);

@@ -44,7 +44,7 @@ class BookPolicy
      */
     public function delete(User $user, Book $book): bool
     {
-        //
+        return $book->user()->is($user) || $user->id==1;
     }
 
     /**
