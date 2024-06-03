@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
@@ -63,7 +64,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        abort_if(auth()->id() !==1 && $book->user_id !== auth()->id(),403,'Only can edit your books');
+        Gate::authorize('update',$book);
         return view('my_books.edit',compact('book'));
     }
 
@@ -72,7 +73,7 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        abort_if(auth()->id() !==1 && $book->user_id !== auth()->id(),403,'Only can edit your books');
+        Gate::authorize('update',$book);
         $book->fill($request->safe()->except('image'));
         if ($request->hasFile('image')){
             $url = $request->file('image')->store('books/images',['disk'=>'public']);
