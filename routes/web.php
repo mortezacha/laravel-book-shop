@@ -6,6 +6,7 @@ use App\Http\Controllers\TimelineController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [TimelineController::class, 'index']);
+Route::get('/book/{book}', [TimelineController::class, 'show'])->name('books.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
