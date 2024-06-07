@@ -11,7 +11,7 @@ class UpdateBookRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return (auth()->id() == $this->book?->user_id || auth()->id() == 1);
+        return auth()->id() == $this->book?->user_id || auth()->id() == 1;
     }
 
     /**
