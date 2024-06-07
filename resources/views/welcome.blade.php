@@ -34,5 +34,9 @@
         @endforeach
     </div>
 
+    <div class="flex justify-center">
+        {{$books->link()}}
+    </div>
+
 
 </x-guest-layout>
